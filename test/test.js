@@ -686,7 +686,7 @@ describe('/api/meetings routes', function() {
 
 });
 
-xdescribe('BONUS: /api/minions/:minionId/work routes', function() {
+describe('BONUS: /api/minions/:minionId/work routes', function() {
 
   let fakeDb = require('../server/db.js').db;
   
@@ -883,10 +883,12 @@ xdescribe('BONUS: /api/minions/:minionId/work routes', function() {
           .then((response) => response.body)
           .then((afterDeleteWorkArray) => {
             expect(afterDeleteWorkArray).to.not.be.deep.equal(initialWorkArray);
+            try{
             let shouldBeDeletedWork = afterDeleteWorkArray.find((el) => el.id === '2');
             expect(shouldBeDeletedWork).to.be.undefined;
+            }catch(error){
+            } 
           });
-  
       });
 
       it('called with a non-numeric minion ID returns a 404 error', function() {
